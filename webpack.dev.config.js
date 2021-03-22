@@ -1,12 +1,14 @@
 const path = require('path');
 // const HTMLWebpackPlugin = require('html-webpack-plugin');
-// const [CleanWebpackPlugin] = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        main: path.resolve(__dirname, './src/index.js'),
+    },
     output: {
-        filename: 'dev-main.js',
-        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        path: path.resolve(__dirname, './dist'),
     },
     // context: path.resolve(__dirname, 'src'),
     mode: 'development',
@@ -16,12 +18,12 @@ module.exports = {
         hot: true,
         writeToDisk: true
     },
-    // plugins: [
-    // new HTMLWebpackPlugin({
-    //     template: './index.html'
-    // }),
-    // new CleanWebpackPlugin(),
-    // ],
+    plugins: [
+        // new HTMLWebpackPlugin({
+        //     template: path.resolve(__dirname, './src/index.html'),
+        // }),
+        new CleanWebpackPlugin(),
+    ],
     module: {
         rules: [{
                 test: /\.js$/i,
