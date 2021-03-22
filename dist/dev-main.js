@@ -38,18 +38,18 @@ eval("\nmodule.exports = function () {\n\treturn /[\\u001b\\u009b][[()#;?]*(?:[0
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_name__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/name */ \"./src/modules/name.js\");\n\n\n\n(0,_modules_name__WEBPACK_IMPORTED_MODULE_0__.default)();\n\n//# sourceURL=webpack://diplom/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_showNumbers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/showNumbers */ \"./src/modules/showNumbers.js\");\n\n\n\n(0,_modules_showNumbers__WEBPACK_IMPORTED_MODULE_0__.default)();\n\n//# sourceURL=webpack://diplom/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/modules/name.js":
-/*!*****************************!*\
-  !*** ./src/modules/name.js ***!
-  \*****************************/
+/***/ "./src/modules/showNumbers.js":
+/*!************************************!*\
+  !*** ./src/modules/showNumbers.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar name = function name() {\n  console.log('Hello!');\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (name);\n\n//# sourceURL=webpack://diplom/./src/modules/name.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar showNumbers = function showNumbers() {\n  var arrow = document.querySelector('.header-contacts__arrow'),\n      numberAccord = document.querySelector('.header-contacts__phone-number-accord'),\n      links = numberAccord.querySelectorAll('a');\n  arrow.addEventListener('click', function () {\n    numberAccord.style.top = '30px';\n    links.forEach(function (item) {\n      return item.style.opacity = 1;\n    });\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (showNumbers);\n\n//# sourceURL=webpack://diplom/./src/modules/showNumbers.js?");
 
 /***/ }),
 
@@ -451,7 +451,7 @@ eval("var map = {\n\t\"./log\": \"./node_modules/webpack/hot/log.js\"\n};\n\n\nf
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("ff36f1deb1a25b75ffd6")
+/******/ 		__webpack_require__.h = () => ("c8465c480d7443ddbead")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
