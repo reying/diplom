@@ -4,7 +4,10 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, './dist')
+        path: path.resolve(__dirname, './dist'),
+        enviroment: {
+            arrowFunction: false
+        }
     },
     mode: 'prodaction',
     module: {
