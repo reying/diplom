@@ -49,7 +49,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar menu = function menu() {\n  var menuIcon = document.querySelector('.menu__icon'),\n      menu = document.querySelector('.popup-dialog-menu');\n  menuIcon.addEventListener('click', function () {\n    menu.style.right = '639px';\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (menu);\n\n//# sourceURL=webpack://diplom/./src/modules/menu.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar menu = function menu() {\n  var menuIcon = document.querySelector('.menu__icon'),\n      menu = document.querySelector('.popup-dialog-menu'),\n      width = document.documentElement.clientWidth,\n      height = document.documentElement.clientHeight;\n  menuIcon.addEventListener('click', function () {\n    if (width >= 576) {\n      menu.style.right = '645px';\n    } else {\n      menu.style.top = \"\".concat(height, \"px\");\n    }\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (menu);\n\n//# sourceURL=webpack://diplom/./src/modules/menu.js?");
 
 /***/ }),
 
@@ -462,7 +462,7 @@ eval("var map = {\n\t\"./log\": \"./node_modules/webpack/hot/log.js\"\n};\n\n\nf
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("dda6dfedd9958e16e77c")
+/******/ 		__webpack_require__.h = () => ("e00c81a0bafa89275b80")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
