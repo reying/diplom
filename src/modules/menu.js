@@ -14,9 +14,11 @@ const menu = () => {
         }
     });
 
-    const scrollToBlock = (link, event) => {
+    const scrollToBlock = (target, event) => {
         event.preventDefault();
-        const idBlock = link.getAttribute('href').substring(1),
+
+        const link = target.firstChild,
+            idBlock = link.getAttribute('href').substring(1),
             block = document.getElementById(idBlock);
 
         block.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -26,18 +28,17 @@ const menu = () => {
     body.addEventListener('click', (event) => {
         const target = event.target;
 
-        if (target.matches('a[href*="#"]')) {
+        if (target.closest('.popup-menu-nav__item')) {
             if (width >= 576) {
                 menu.style.right = '0px';
             } else {
                 menu.style.top = '0px';
             }
-            scrollToBlock(target, event);
+            scrollToBlock(target.closest('.popup-menu-nav__item'), event);
         }
 
-        if (target.matches('.button-footer')) {
-            const link = target.firstChild;
-            scrollToBlock(link, event);
+        if (target.closest('.button-footer')) {
+            scrollToBlock(target.closest('.button-footer'), event);
         }
     });
 };
