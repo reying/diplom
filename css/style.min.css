@@ -1277,7 +1277,7 @@ template {
     height: 100%;
     content: '';
     background: url(../images/formula/item_popup_1.svg) 0 0/contain no-repeat;
-    z-index: -1
+    z-index: -1;
 }
 
 .formula-item-popup-02 {
@@ -1384,7 +1384,21 @@ template {
     height: 100%;
     content: '';
     background: url(../images/formula/item_popup_6.svg) 0 0/contain no-repeat;
-    z-index: -1
+    z-index: -1;
+}
+
+.formula-item.formula-item__buttom {
+    z-index: 1;
+}
+
+.formula-item-popup.formula-item-popup__buttom {
+    padding-top: 35px;
+    top: 155px;
+}
+
+.formula-item-popup.formula-item-popup__buttom:before {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .repair-types {
@@ -7778,7 +7792,8 @@ div.wave-block:nth-child(17):after {
 
 .active-item .formula-item-popup {
     visibility: visible;
-    opacity: 1
+    opacity: 1;
+    z-index: 10;
 }
 
 .active-item-partners {
