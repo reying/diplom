@@ -1,7 +1,8 @@
 const popups = () => {
     const body = document.querySelector('body'),
         repairTypesSection = document.querySelector('.popup-repair-types'),
-        privacySection = document.querySelector('.popup-privacy');
+        privacySection = document.querySelector('.popup-privacy'),
+        consultationSection = document.querySelector('.popup-consultation');
 
     body.addEventListener('click', (event) => {
         const target = event.target;
@@ -31,7 +32,14 @@ const popups = () => {
             privacySection.style.visibility = 'hidden';
         }
 
+        // popup
+        if (target.closest('.button_wide')) {
+            consultationSection.style.visibility = 'visible';
+        }
 
+        if (target.closest('.popup-consultation') && target.closest('.close')) {
+            consultationSection.style.visibility = 'hidden';
+        }
 
     });
 };

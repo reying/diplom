@@ -1012,7 +1012,7 @@ template {
 
 .formula-slider {
     min-height: 400px;
-    margin-top: 102px
+    /* margin-top: 102px */
 }
 
 .formula-slider__slide {
@@ -1069,7 +1069,6 @@ template {
         width: 480px;
         margin-left: auto;
         margin-right: auto;
-        /* position: relative; */
     }
 }
 
@@ -6825,7 +6824,7 @@ div.wave-block:nth-child(17):after {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    top: 50%;
+    top: 60%;
     margin-top: -19px;
     width: 38px;
     height: 38px;
@@ -7887,12 +7886,12 @@ div.wave-block:nth-child(17):after {
 
 @media (max-width:864px) {
     #formula-arrow_left {
-        top: 42%;
-        left: 25px
+        top: 60%;
+        left: 15px
     }
     #formula-arrow_right {
-        top: 42%;
-        right: 25px
+        top: 60%;
+        right: 15px
     }
 }
 
@@ -7936,10 +7935,10 @@ div.wave-block:nth-child(17):after {
 
 @media (max-width:767px) {
     #formula-arrow_left {
-        left: 50px
+        left: 25px
     }
     #formula-arrow_right {
-        right: 50px
+        right: 25px
     }
     #transparency-arrow_left {
         left: 110px
