@@ -1062,13 +1062,14 @@ template {
 
 @media (max-width:575px) {
     .formula-slider {
-        min-height: 265px;
+        min-height: 165px;
         margin-top: 52px
     }
     .formula-slider-wrap {
-        width: 290px;
+        width: 480px;
         margin-left: auto;
-        margin-right: auto
+        margin-right: auto;
+        /* position: relative; */
     }
 }
 
@@ -8046,12 +8047,12 @@ strong {
 
 @media (max-width:575px) {
     #formula-arrow_left {
-        left: 65px;
-        top: 50%
+        left: 15px;
+        top: 80%
     }
     #formula-arrow_right {
-        right: 65px;
-        top: 50%
+        right: 15px;
+        top: 80%
     }
     #repair-types-arrow_left,
     #repair-types-arrow_right {
