@@ -7,6 +7,7 @@ import popups from './modules/popups';
 import feedback from './modules/feedback';
 import successFormula from './modules/successFormula';
 import repairTypes from './modules/repairTypes';
+import portfolio from './modules/portfolio';
 
 
 showNumbers();
@@ -15,3 +16,4 @@ popups();
 feedback();
 successFormula();
 repairTypes();
+portfolio();
