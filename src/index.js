@@ -8,6 +8,7 @@ import feedback from './modules/feedback';
 import successFormula from './modules/successFormula';
 import repairTypes from './modules/repairTypes';
 import portfolio from './modules/portfolio';
+import transparency from './modules/transparency';
 
 
 showNumbers();
@@ -17,3 +18,4 @@ feedback();
 successFormula();
 repairTypes();
 portfolio();
+transparency();

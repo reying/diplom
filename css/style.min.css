@@ -2272,7 +2272,8 @@ div.wave-block:nth-child(17):after {
 
 @media (max-width:1090px) {
     .transparency-slider.row {
-        display: block
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
     }
     .transparency-item {
         margin-left: auto;
