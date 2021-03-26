@@ -9,6 +9,7 @@ import successFormula from './modules/successFormula';
 import repairTypes from './modules/repairTypes';
 import portfolio from './modules/portfolio';
 import transparency from './modules/transparency';
+import problems from './modules/problems';
 
 
 showNumbers();
@@ -19,3 +20,4 @@ successFormula();
 repairTypes();
 portfolio();
 transparency();
+problems();

@@ -2690,7 +2690,7 @@ div.wave-block:nth-child(17):after {
 }
 
 .problems-item__descr {
-    width: 260px;
+    /* width: 260px; */
     margin-top: 10px;
     font-weight: 300;
     line-height: 24px;
@@ -2703,9 +2703,9 @@ div.wave-block:nth-child(17):after {
     .problems-item {
         max-width: 340px
     }
-    .problems-item__descr {
+    /* .problems-item__descr {
         width: 320px
-    }
+    } */
     .problems-item__icon svg path {
         fill: #f48922
     }
@@ -2946,6 +2946,20 @@ div.wave-block:nth-child(17):after {
     line-height: 21px;
     font-size: 16px;
     color: #000
+}
+
+.problems-item.problems-item__buttom {
+    z-index: 1;
+}
+
+.problems-item-popup.problems-item-popup__buttom {
+    padding-top: 35px;
+    top: 155px;
+}
+
+.problems-item-popup.problems-item-popup__buttom:before {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .stock {
@@ -7869,6 +7883,12 @@ div.wave-block:nth-child(17):after {
     fill: #fff
 }
 
+.active-item .problems-item-popup {
+    visibility: visible;
+    opacity: 1;
+    z-index: 10;
+}
+
 #designs>.wrapper>div.preview-block.visible>.preview-block__item>.preview-block__item-inner.preview_active {
     color: #fff
 }
@@ -7925,13 +7945,13 @@ div.wave-block:nth-child(17):after {
 }
 
 #problems-arrow_left {
-    margin-top: -100px;
-    left: 120px
+    /* margin-top: -100px; */
+    left: -30px
 }
 
 #problems-arrow_right {
-    margin-top: -100px;
-    right: 120px
+    /* margin-top: -100px; */
+    right: -30px
 }
 
 @media (max-width:767px) {
