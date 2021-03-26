@@ -10,6 +10,7 @@ import repairTypes from './modules/repairTypes';
 import portfolio from './modules/portfolio';
 import transparency from './modules/transparency';
 import problems from './modules/problems';
+import designs from './modules/designs';
 
 
 showNumbers();
@@ -21,3 +22,4 @@ repairTypes();
 portfolio();
 transparency();
 problems();
+designs();
