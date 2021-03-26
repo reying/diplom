@@ -13,6 +13,7 @@ import problems from './modules/problems';
 import designs from './modules/designs';
 import scheme from './modules/scheme';
 import reviews from './modules/reviews';
+import faq from './modules/faq';
 
 
 showNumbers();
@@ -27,3 +28,4 @@ problems();
 designs();
 scheme();
 reviews();
+faq();
