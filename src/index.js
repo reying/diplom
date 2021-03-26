@@ -14,6 +14,7 @@ import designs from './modules/designs';
 import scheme from './modules/scheme';
 import reviews from './modules/reviews';
 import faq from './modules/faq';
+import partners from './modules/partners';
 
 
 showNumbers();
@@ -29,3 +30,4 @@ designs();
 scheme();
 reviews();
 faq();
+partners();
