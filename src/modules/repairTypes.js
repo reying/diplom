@@ -87,12 +87,9 @@ const repairTypes = () => {
                 document.querySelector('#nav-arrow-repair-right_base').style.display = 'block';
                 counter--;
             }
-
-
         }
 
         if (target.closest('#nav-arrow-repair-right_base')) {
-
 
             const widthSlide = navListRepair.children[counter].offsetWidth + 10;
             positionX += widthSlide;
@@ -104,8 +101,6 @@ const repairTypes = () => {
                 document.querySelector('#nav-arrow-repair-left_base').style.display = 'block';
                 counter++;
             }
-
-
         }
     });
 };

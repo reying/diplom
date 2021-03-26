@@ -12,7 +12,7 @@ const popups = () => {
         //     repairTypesSection.style.visibility = 'hidden';
         // }
 
-        if (target.closest('.link-list-menu') || target.closest('.link-list-repair')) {
+        if (target.closest('.link-list-repair')) {
             if (target.closest('a')) {
                 event.preventDefault();
                 repairTypesSection.style.visibility = 'visible';
@@ -32,7 +32,7 @@ const popups = () => {
             privacySection.style.visibility = 'hidden';
         }
 
-        // popup
+        // popup-consultation
         if (target.closest('.button_wide')) {
             consultationSection.style.visibility = 'visible';
         }
