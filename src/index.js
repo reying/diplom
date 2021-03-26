@@ -12,6 +12,7 @@ import transparency from './modules/transparency';
 import problems from './modules/problems';
 import designs from './modules/designs';
 import scheme from './modules/scheme';
+import reviews from './modules/reviews';
 
 
 showNumbers();
@@ -25,3 +26,4 @@ transparency();
 problems();
 designs();
 scheme();
+reviews();
