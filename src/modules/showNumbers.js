@@ -4,8 +4,13 @@ const showNumbers = () => {
         links = numberAccord.querySelectorAll('a');
 
     arrow.addEventListener('click', () => {
-        numberAccord.style.top = '30px';
-        links.forEach(item => item.style.opacity = 1);
+        if (getComputedStyle(links[0]).opacity === '0') {
+            numberAccord.style.top = '30px';
+            links.forEach(item => item.style.opacity = 1);
+        } else {
+            numberAccord.style.top = '0px';
+            links.forEach(item => item.style.opacity = 0);
+        }
     });
 };
 
