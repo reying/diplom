@@ -15,6 +15,7 @@ import scheme from './modules/scheme';
 import reviews from './modules/reviews';
 import faq from './modules/faq';
 import partners from './modules/partners';
+import sendForms from './modules/sendForms';
 
 
 showNumbers();
@@ -31,3 +32,4 @@ scheme();
 reviews();
 faq();
 partners();
+sendForms();
