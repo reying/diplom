@@ -50,7 +50,7 @@ const problems = () => {
             for (let i = 0; i < 3; i++) {
                 slides[i].classList.remove('active-item');
                 if (i === 1) { slides[i].classList.add('active-item'); }
-                wrap.append(slides[i]);
+                wrap.appendChild(slides[i]);
             }
         };
 

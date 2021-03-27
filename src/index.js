@@ -1,5 +1,12 @@
 'use strict';
 
+// import '@babel/polyfill';
+import 'element-closest-polyfill';
+import 'nodelist-foreach-polyfill';
+import 'formdata-polyfill';
+import 'es6-promise';
+import 'fetch-polyfill';
+
 
 import showNumbers from './modules/showNumbers';
 import menu from './modules/menu';

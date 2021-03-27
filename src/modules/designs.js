@@ -8,19 +8,25 @@ const designs = () => {
         popupDesignsSection = document.querySelector('.popup-design'),
         popupDesignSlides = document.querySelector('.popup-design-slider').children,
         popupDesignText = document.querySelectorAll('.popup-design-text'),
-        navListPopupDesigns = document.getElementById('nav-list-popup-designs');
+        navListPopupDesigns = document.getElementById('nav-list-popup-designs'),
+        sliderCounterTotal = designsSection.querySelector('.slider-counter-content__total'),
+        sliderCounterCurrent = designsSection.querySelector('.slider-counter-content__current'),
+        popupSliderCounterTotal = popupDesignsSection.querySelector('.slider-counter-content__total'),
+        popupSliderCounterCurrent = popupDesignsSection.querySelector('.slider-counter-content__current'),
+        navArrowDesignsLeft = document.getElementById('nav-arrow-designs_left'),
+        navArrowDesignsRight = document.getElementById('nav-arrow-designs_right'),
+        navArrowPopupDesignsLeft = document.getElementById('nav-arrow-popup-designs_left'),
+        navArrowPopupDesignsRight = document.getElementById('nav-arrow-popup-designs_right');
 
     let currentSlide = 0,
         currentPreview = 0,
         counter = 0,
         positionX = 0;
 
-    const searchActive = (arr) => {
-        arr.forEach((item, index) => {
-            if (item.classList.contains('active')) {
-                currentSlide = index;
-            }
-        });
+    const searchActive = (arr, className) => {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].classList.contains(className)) { return i; }
+        }
     };
 
     const showActive = (index, arr) => {
@@ -28,17 +34,19 @@ const designs = () => {
         arr[index].style.display = 'block';
     };
 
-    const showSlider = () => {
-        showActive(currentSlide, designsSlides);
-        previewBlocks.forEach((item, index) => {
-            item.classList.remove('visible');
-            if (index === currentSlide) { item.classList.add('visible'); }
+    const showSlider = (arr, className) => {
+        arr.forEach((item, index) => {
+            item.classList.remove(className);
+            if (index === currentSlide) { item.classList.add(className); }
         });
     };
 
-    const showSlide = (slides) => {
-        for (let slide of slides[currentSlide].children) { slide.style.display = 'none'; }
-        slides[currentSlide].children[currentPreview].style.display = 'block';
+    const shiftingNavList = (nav, direction) => {
+        let vector = 0;
+        if (direction === 'left') { vector = -1; } else if (direction === 'right') { vector = 1; }
+        const widthSlide = nav.children[counter].offsetWidth + 10;
+        positionX = positionX + (widthSlide * vector);
+        nav.style.transform = `translateX(-${positionX}px)`;
     };
 
 
@@ -49,20 +57,24 @@ const designs = () => {
 
             if (target.closest('.designs-nav__item')) {
                 currentPreview = 0;
+
                 designsNavItems.forEach(item => item.classList.remove('active'));
                 target.classList.add('active');
 
-                searchActive(designsNavItems);
+                currentSlide = searchActive(designsNavItems, 'active');
+                showActive(currentSlide, designsSlides);
+                showSlider(previewBlocks, 'visible');
 
-                showSlider();
-
-                designsSection.querySelector('.slider-counter-content__total').textContent = designsSlides[currentSlide].children.length;
+                sliderCounterCurrent.textContent = currentPreview + 1;
+                sliderCounterTotal.textContent = designsSlides[currentSlide].children.length;
             }
 
             if (target.closest('.preview-block__item')) {
-                const items = target.parentNode.parentNode.children;
+                let items = target.closest('.preview-block').children;
 
-                for (let item of items) { item.children[0].classList.remove('preview_active'); }
+                for (let item of target.closest('.preview-block').children) {
+                    item.children[0].classList.remove('preview_active');
+                }
                 target.parentNode.children[0].classList.add('preview_active');
 
                 for (let i = 0; i < items.length; i++) {
@@ -71,46 +83,39 @@ const designs = () => {
                     }
                 }
 
-                showSlide(designsSlides);
+                showActive(currentPreview, designsSlides[currentSlide].children);
             }
 
             if (target.closest('#nav-arrow-designs_left')) {
-                const widthSlide = navListDesigns.children[counter].offsetWidth + 10;
-                positionX -= widthSlide;
-                navListDesigns.style.transform = `translateX(-${positionX}px)`;
-
+                shiftingNavList(navListDesigns, 'left');
                 if (counter === 0) {
-                    document.querySelector('#nav-arrow-designs_left').style.display = 'none';
+                    navArrowDesignsLeft.style.display = 'none';
                 } else {
-                    document.querySelector('#nav-arrow-designs_right').style.display = 'block';
+                    navArrowDesignsRight.style.display = 'block';
                     counter--;
                 }
             }
 
             if (target.closest('#nav-arrow-designs_right')) {
-
-                const widthSlide = navListDesigns.children[counter].offsetWidth + 10;
-                positionX += widthSlide;
-                navListDesigns.style.transform = `translateX(-${positionX}px)`;
+                shiftingNavList(navListDesigns, 'right');
 
                 if (counter === navListDesigns.children.length - 4) {
-                    document.querySelector('#nav-arrow-designs_right').style.display = 'none';
+                    navArrowDesignsRight.style.display = 'none';
                 } else {
-                    document.querySelector('#nav-arrow-designs_left').style.display = 'block';
+                    navArrowDesignsLeft.style.display = 'block';
                     counter++;
                 }
             }
 
             if (target.closest('#design_left')) {
-                console.log('click');
                 if (currentPreview === 0) {
                     currentPreview = designsSlides[currentSlide].children.length - 1;
                 } else {
                     currentPreview--;
                 }
 
-                showSlide(designsSlides);
-                designsSection.querySelector('.slider-counter-content__current').textContent = currentPreview + 1;
+                showActive(currentPreview, designsSlides[currentSlide].children);
+                sliderCounterCurrent.textContent = currentPreview + 1;
             }
 
             if (target.closest('#design_right')) {
@@ -120,8 +125,8 @@ const designs = () => {
                     currentPreview++;
                 }
 
-                showSlide(designsSlides);
-                designsSection.querySelector('.slider-counter-content__current').textContent = currentPreview + 1;
+                showActive(currentPreview, designsSlides[currentSlide].children);
+                sliderCounterCurrent.textContent = currentPreview + 1;
             }
 
             if (target.closest('.link-list-designs')) {
@@ -130,9 +135,9 @@ const designs = () => {
 
                     popupDesignsSection.style.visibility = 'visible';
 
-                    popupDesignsSection.querySelector('.slider-counter-content__total').textContent = popupDesignSlides[currentSlide].children.length;
+                    popupSliderCounterTotal.textContent = popupDesignSlides[currentSlide].children.length;
 
-                    document.querySelector('#nav-arrow-popup-designs_left').style.display = 'none';
+                    navArrowPopupDesignsLeft.style.display = 'none';
 
                     designsNavItems[currentSlide + 5].classList.add('active');
                 }
@@ -141,7 +146,8 @@ const designs = () => {
 
         if (target.closest('.popup-design')) {
             if (target.closest('.close')) {
-                showSlider();
+                showActive(currentSlide, designsSlides);
+                showSlider(previewBlocks, 'visible');
                 designsNavItems[currentSlide].classList.add('active');
                 popupDesignsSection.style.visibility = 'hidden';
             }
@@ -151,18 +157,15 @@ const designs = () => {
                 designsNavItems.forEach(item => item.classList.remove('active'));
                 target.classList.add('active');
 
-                searchActive(designsNavItems);
+                currentSlide = searchActive(designsNavItems, 'active');
                 currentSlide = currentSlide % 5;
                 showActive(currentSlide, popupDesignSlides);
 
-                popupDesignText.forEach((item, index) => {
-                    item.classList.remove('visible-content-block');
-                    if (index === currentSlide) { item.classList.add('visible-content-block'); }
-                });
+                showSlider(popupDesignText, 'visible-content-block');
 
-                showSlide(popupDesignSlides);
-                popupDesignsSection.querySelector('.slider-counter-content__current').textContent = currentPreview + 1;
-                popupDesignsSection.querySelector('.slider-counter-content__total').textContent = popupDesignSlides[currentSlide].children.length;
+                showActive(currentPreview, popupDesignSlides[currentSlide].children);
+                popupSliderCounterCurrent.textContent = currentPreview + 1;
+                popupSliderCounterTotal.textContent = popupDesignSlides[currentSlide].children.length;
             }
 
             if (target.closest('#popup_design_left')) {
@@ -172,8 +175,8 @@ const designs = () => {
                     currentPreview--;
                 }
 
-                showSlide(popupDesignSlides);
-                popupDesignsSection.querySelector('.slider-counter-content__current').textContent = currentPreview + 1;
+                showActive(currentPreview, popupDesignSlides[currentSlide].children);
+                popupSliderCounterCurrent.textContent = currentPreview + 1;
             }
             if (target.closest('#popup_design_right')) {
                 if (currentPreview === popupDesignSlides[currentSlide].children.length - 1) {
@@ -182,38 +185,33 @@ const designs = () => {
                     currentPreview++;
                 }
 
-                showSlide(popupDesignSlides);
-                popupDesignsSection.querySelector('.slider-counter-content__current').textContent = currentPreview + 1;
+                showActive(currentPreview, popupDesignSlides[currentSlide].children);
+                popupSliderCounterCurrent.textContent = currentPreview + 1;
             }
 
             if (target.closest('#nav-arrow-popup-designs_left')) {
-                const widthSlide = navListPopupDesigns.children[counter].offsetWidth + 10;
-                positionX -= widthSlide;
-                navListPopupDesigns.style.transform = `translateX(-${positionX}px)`;
+                shiftingNavList(navListPopupDesigns, 'left');
 
                 if (counter === 0) {
-                    document.querySelector('#nav-arrow-popup-designs_left').style.display = 'none';
-                    document.querySelector('#nav-arrow-popup-designs_right').style.display = 'block';
+                    navArrowPopupDesignsLeft.style.display = 'none';
+                    navArrowPopupDesignsRight.style.display = 'block';
                 } else {
-                    document.querySelector('#nav-arrow-popup-designs_right').style.display = 'block';
+                    navArrowPopupDesignsRight.style.display = 'block';
                     counter--;
                 }
             }
             if (target.closest('#nav-arrow-popup-designs_right')) {
-                const widthSlide = navListPopupDesigns.children[counter].offsetWidth + 10;
-                positionX += widthSlide;
-                navListPopupDesigns.style.transform = `translateX(-${positionX}px)`;
+                shiftingNavList(navListPopupDesigns, 'right');
 
                 if (counter === navListPopupDesigns.children.length - 4) {
-                    document.querySelector('#nav-arrow-popup-designs_right').style.display = 'none';
-                    document.querySelector('#nav-arrow-popup-designs_left').style.display = 'block';
+                    navArrowPopupDesignsRight.style.display = 'none';
+                    navArrowPopupDesignsLeft.style.display = 'block';
                 } else {
-                    document.querySelector('#nav-arrow-popup-designs_left').style.display = 'block';
+                    navArrowPopupDesignsLeft.style.display = 'block';
                     counter++;
                 }
             }
         }
-
 
     });
 
@@ -221,9 +219,9 @@ const designs = () => {
 
     const init = () => {
         showActive(0, designsSlides);
-        document.querySelector('#nav-arrow-designs_left').style.display = 'none';
+        navArrowDesignsLeft.style.display = 'none';
         showActive(0, popupDesignSlides);
-        showSlide(popupDesignSlides);
+        showActive(currentPreview, popupDesignSlides[currentSlide].children);
     };
 
     init();

@@ -187,7 +187,7 @@ const repairTypes = () => {
                 servicesList.forEach((item, index) => {
                     const button = document.createElement('button');
 
-                    button.classList.add('button_o', 'popup-repair-types-nav__item');
+                    button.className += ' button_o' + ' popup-repair-types-nav__item';
                     if (index === 0) {
                         button.classList.add('active');
                         switchInner.textContent = item;
@@ -195,7 +195,7 @@ const repairTypes = () => {
 
                     button.textContent = item;
 
-                    popupNavListRepair.append(button);
+                    popupNavListRepair.appendChild(button);
                 });
             };
 
@@ -226,11 +226,11 @@ const repairTypes = () => {
                             <td class="repair-types-value">${elem.cost} руб.</td>
                             `;
 
-                            tbody.append(tr);
+                            tbody.appendChild(tr);
                         });
 
-                        table.append(tbody);
-                        popupContentTable.append(table);
+                        table.appendChild(tbody);
+                        popupContentTable.appendChild(table);
                     }
                 });
             };

@@ -50,7 +50,7 @@ const successFormula = () => {
             for (let i = 0; i < 5; i++) {
                 slides[i].classList.remove('active-item');
                 if (i === 2) { slides[i].classList.add('active-item'); }
-                wrap.append(slides[i]);
+                wrap.appendChild(slides[i]);
             }
         };
 
