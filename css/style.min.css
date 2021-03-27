@@ -5171,6 +5171,11 @@ div.wave-block:nth-child(17):after {
     border-radius: 20px !important
 }
 
+.nav-list-popup-repair .popup-repair-types-nav__item.active {
+    border: 3px solid #f48922 !important;
+    border-radius: 20px !important
+}
+
 @media (max-width:1024px) {
     .popup-repair-types-nav__item {
         width: 298px;
@@ -7050,7 +7055,7 @@ div.wave-block:nth-child(17):after {
 
 @media (max-width:1024px) {
     .nav-list-popup-repair {
-        min-width: 3130px;
+        min-width: 1850px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
