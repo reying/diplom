@@ -1,6 +1,11 @@
 const problems = () => {
     const body = document.querySelector('body');
 
+    const toggleClass = (item, title) => {
+        item.classList.toggle('problems-item__buttom');
+        title.classList.toggle('problems-item-popup__buttom');
+    };
+
     body.addEventListener('mouseover', (event) => {
         const target = event.target;
 
@@ -11,10 +16,7 @@ const problems = () => {
             const offsetTitle = window.pageYOffset + title.getBoundingClientRect().top,
                 offsetWindow = window.pageYOffset;
 
-            if (offsetTitle < offsetWindow) {
-                item.classList.add('problems-item__buttom');
-                title.classList.add('problems-item-popup__buttom');
-            }
+            if (offsetTitle < offsetWindow) { toggleClass(item, title); }
 
             item.classList.add('active-item');
         }
@@ -27,10 +29,7 @@ const problems = () => {
             const title = target.closest('.problems-item__icon').childNodes[1],
                 item = target.closest('.problems-item');
 
-            if (title.classList.contains('problems-item-popup__buttom')) {
-                item.classList.remove('problems-item__buttom');
-                title.classList.remove('problems-item-popup__buttom');
-            }
+            if (title.classList.contains('problems-item-popup__buttom')) { toggleClass(item, title); }
 
             item.classList.remove('active-item');
         }
@@ -42,6 +41,7 @@ const problems = () => {
             prev = document.querySelector('#problems-arrow_left'),
             slidesToShow = 3,
             widthSlide = Math.floor(100 / slidesToShow);
+
         let slides = document.querySelectorAll('.problems-slider__slide'),
             wrap = document.querySelector('.problems-slider');
 
@@ -105,14 +105,11 @@ const problems = () => {
         };
 
         const prevSlider = () => {
-            // wrap.style.transform = `translateX(${widthSlide}%)`;
             rightOffsetSlide();
             render();
         };
 
         const nextSlider = () => {
-            // wrap.style.transform = `translateX(-${2*widthSlide}%)`;
-
             leftOffsetSlide();
             render();
         };

@@ -1,13 +1,15 @@
 const portfolio = () => {
     const portfolioSection = document.getElementById('portfolio'),
         portfolioSlider = document.querySelector('.portfolio-slider'),
+        portfolioArrowLeft = document.getElementById('portfolio-arrow_left'),
+        portfolioArrowRight = document.getElementById('portfolio-arrow_right'),
         popupPortfolio = document.querySelector('.popup-portfolio'),
         popupPortfolioSlider = document.querySelector('.popup-portfolio-slider'),
         popupPortfolioSliderWrap = document.querySelector('.popup-portfolio-slider-wrap'),
         popupLeft = document.getElementById('popup_portfolio_left'),
         popupRight = document.getElementById('popup_portfolio_right'),
-        sliderTotal = document.querySelector('#popup-portfolio-counter').querySelector('.slider-counter-content__total'),
-        sliderCurrent = document.querySelector('#popup-portfolio-counter').querySelector('.slider-counter-content__current'),
+        sliderTotal = document.getElementById('popup-portfolio-counter').querySelector('.slider-counter-content__total'),
+        sliderCurrent = document.getElementById('popup-portfolio-counter').querySelector('.slider-counter-content__current'),
         popupTexts = document.querySelectorAll('.popup-portfolio-text'),
         portfolioSlideFrames = portfolioSlider.querySelectorAll('.portfolio-slider__slide-frame');
 
@@ -29,37 +31,46 @@ const portfolio = () => {
         popupTexts[num - 1].style.display = 'block';
     };
 
+    const showSlide = (numSlide, arrow) => {
+        showText(numSlide);
+        sliderCurrent.textContent = numSlide;
+        arrow.style.display = 'block';
+    };
+
+    const translateSlides = (direction) => {
+        let vector = 0;
+        if (direction === 'left') { vector = -1; } else if (direction === 'right') { vector = 1; }
+
+        const widthSlide = portfolioSlider.children[counter].offsetWidth;
+        positionX += widthSlide * vector;
+
+        for (let item of portfolioSlider.children) {
+            item.style.transform = `translateX(-${positionX}px)`;
+        }
+    };
+
+
     portfolioSection.addEventListener('click', (event) => {
         const target = event.target;
 
         if (target.closest('#portfolio-arrow_right')) {
-            const widthSlide = portfolioSlider.children[counter].offsetWidth;
-            positionX += widthSlide;
-
-            for (let item of portfolioSlider.children) {
-                item.style.transform = `translateX(-${positionX}px)`;
-            }
+            translateSlides('right');
 
             if (counter === portfolioSlider.children.length - 4) {
-                document.querySelector('#portfolio-arrow_right').style.display = 'none';
+                portfolioArrowRight.style.display = 'none';
             } else {
-                document.querySelector('#portfolio-arrow_left').style.display = 'flex';
+                portfolioArrowLeft.style.display = 'flex';
                 counter++;
             }
         }
 
         if (target.closest('#portfolio-arrow_left')) {
-            const widthSlide = portfolioSlider.children[counter].offsetWidth;
-            positionX -= widthSlide;
-
-            for (let item of portfolioSlider.children) {
-                item.style.transform = `translateX(-${positionX}px)`;
-            }
+            translateSlides('left');
 
             if (counter === 0) {
-                document.querySelector('#portfolio-arrow_left').style.display = 'none';
+                portfolioArrowLeft.style.display = 'none';
             } else {
-                document.querySelector('#portfolio-arrow_right').style.display = 'flex';
+                portfolioArrowRight.style.display = 'flex';
                 counter--;
             }
         }
@@ -72,10 +83,12 @@ const portfolio = () => {
                     count = index;
                 }
             });
-            console.log(count);
+
             for (let i = 0; i < count; i++) {
                 popupPortfolioSlider.children[i].style.display = 'none';
+                if (count === i) { popupPortfolioSlider.children[i].style.display = 'flex'; }
             }
+
             showText(count + 1);
             sliderCurrent.textContent = count + 1;
             sliderTotal.textContent = popupPortfolioSlider.children.length;
@@ -91,21 +104,17 @@ const portfolio = () => {
             popupPortfolio.style.visibility = 'hidden';
         }
 
-        if (target.closest('.popup-arrow_right')) {
+        if (target.closest('#popup_portfolio_right')) {
             if (count === popupPortfolioSlider.children.length - 2) { popupRight.style.display = 'none'; }
-            sliderCurrent.textContent = count + 2;
-            showText(count + 2);
+            showSlide(count + 2, popupLeft);
             popupPortfolioSlider.children[count].style.display = 'none';
             ++count;
-            popupLeft.style.display = 'block';
         }
 
         if (target.closest('#popup_portfolio_left')) {
             if (count === 1) { popupLeft.style.display = 'none'; }
-            sliderCurrent.textContent = count;
-            showText(count);
+            showSlide(count, popupRight);
             --count;
-            popupRight.style.display = 'block';
             popupPortfolioSlider.children[count].style.display = 'block';
         }
     });

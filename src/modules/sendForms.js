@@ -19,9 +19,7 @@ const sendForms = () => {
 
         const formData = new FormData(form);
         let body = {};
-        formData.forEach((val, key) => {
-            body[key] = val;
-        });
+        formData.forEach((val, key) => { body[key] = val; });
 
         postData(body)
             .then(response => {

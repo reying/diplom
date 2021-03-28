@@ -3,7 +3,9 @@ const scheme = () => {
         schemeNavItems = document.querySelectorAll('.scheme-nav__item'),
         schemeSlides = document.querySelectorAll('.scheme-slider__slide'),
         schemeDescriptionBlocks = document.querySelectorAll('.scheme-description-block'),
-        schemeList = document.getElementById('scheme-list');
+        schemeList = document.getElementById('scheme-list'),
+        navArrowSchemeLeft = document.getElementById('nav-arrow-scheme_left'),
+        navArrowSchemeRight = document.getElementById('nav-arrow-scheme_right');
 
     let numActiveItem = 0,
         counter = 0,
@@ -19,6 +21,13 @@ const scheme = () => {
 
     const makeItNone = (arr) => {
         arr.forEach(item => item.style.display = 'none');
+    };
+
+    const translateBlock = (block, direction) => {
+        let widthSlide = block.children[counter].offsetWidth + 10;
+        if (direction === 'left') { widthSlide *= -1; }
+        positionX += widthSlide;
+        block.style.transform = `translateX(-${positionX}px)`;
     };
 
     body.addEventListener('click', (event) => {
@@ -38,33 +47,29 @@ const scheme = () => {
         }
 
         if (target.closest('#nav-arrow-scheme_left')) {
-            const widthSlide = schemeList.children[counter].offsetWidth + 10;
-            positionX -= widthSlide;
-            schemeList.style.transform = `translateX(-${positionX}px)`;
+            translateBlock(schemeList, 'left');
 
             if (counter === 0) {
-                document.querySelector('#nav-arrow-scheme_left').style.display = 'none';
+                navArrowSchemeLeft.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-scheme_right').style.display = 'block';
+                navArrowSchemeRight.style.display = 'block';
                 counter--;
             }
         }
 
         if (target.closest('#nav-arrow-scheme_right')) {
-            const widthSlide = schemeList.children[counter].offsetWidth + 10;
-            positionX += widthSlide;
-            schemeList.style.transform = `translateX(-${positionX}px)`;
+            translateBlock(schemeList, 'right');
 
             if (counter === schemeList.children.length - 4) {
-                document.querySelector('#nav-arrow-scheme_right').style.display = 'none';
+                navArrowSchemeRight.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-scheme_left').style.display = 'block';
+                navArrowSchemeLeft.style.display = 'block';
                 counter++;
             }
         }
     });
 
-    document.querySelector('#nav-arrow-scheme_left').style.display = 'none';
+    navArrowSchemeLeft.style.display = 'none';
 };
 
 export default scheme;

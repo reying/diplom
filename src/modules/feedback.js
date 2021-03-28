@@ -1,7 +1,8 @@
 const feedback = () => {
 
     const maskPhone = (selector, masked = '+7 (___) ___-__-__') => {
-        const elems = document.querySelectorAll(selector);
+        const elems = document.querySelectorAll(selector),
+            body = document.querySelector('body');
 
         function mask(event) {
             const keyCode = event.keyCode;

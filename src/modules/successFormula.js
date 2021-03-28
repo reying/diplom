@@ -38,10 +38,11 @@ const successFormula = () => {
 
     const slider = () => {
         const main = document.querySelector('.formula-slider-wrap'),
-            next = document.querySelector('#formula-arrow_right'),
-            prev = document.querySelector('#formula-arrow_left'),
+            next = document.getElementById('formula-arrow_right'),
+            prev = document.getElementById('formula-arrow_left'),
             slidesToShow = 3,
             widthSlide = Math.floor(100 / slidesToShow);
+
         let slides = document.querySelectorAll('.formula-slider__slide'),
             wrap = document.querySelector('.formula-slider');
 
@@ -106,14 +107,11 @@ const successFormula = () => {
         };
 
         const prevSlider = () => {
-            // wrap.style.transform = `translateX(${widthSlide}%)`;
             rightOffsetSlide();
             render();
         };
 
         const nextSlider = () => {
-            // wrap.style.transform = `translateX(-${2*widthSlide}%)`;
-
             leftOffsetSlide();
             render();
         };

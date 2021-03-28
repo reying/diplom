@@ -1,6 +1,5 @@
 const partners = () => {
-    const body = document.querySelector('body'),
-        partnersSection = document.getElementById('partners'),
+    const partnersSection = document.getElementById('partners'),
         main = partnersSection.querySelector('.wrapper'),
         wrap = partnersSection.querySelector('.partners-slider'),
         slides = partnersSection.querySelector('.partners-slider').children,
@@ -85,21 +84,23 @@ const partners = () => {
         const allResponse = responsive.map(item => item.breakpoint);
         const maxResponse = Math.max(...allResponse);
 
+        const computingWidthSlide = (newSlidesToShow) => {
+            slidesToShow = newSlidesToShow;
+            widthSlide = Math.floor(100 / slidesToShow);
+            maxPosition = slides.length - slidesToShow;
+        };
+
         const checkResponse = () => {
             const widthWindow = document.documentElement.clientWidth;
             if (widthWindow < maxResponse) {
                 for (let i = 0; i < allResponse.length; i++) {
                     if (widthWindow < allResponse[i]) {
-                        slidesToShow = responsive[i].slidesToShow;
-                        widthSlide = Math.floor(100 / slidesToShow);
-                        maxPosition = slides.length - slidesToShow;
+                        computingWidthSlide(responsive[i].slidesToShow);
                         addStyle();
                     }
                 }
             } else {
-                slidesToShow = slidesToShowDefault;
-                widthSlide = Math.floor(100 / slidesToShow);
-                maxPosition = slides.length - slidesToShow;
+                computingWidthSlide(slidesToShowDefault);
                 addStyle();
             }
         };

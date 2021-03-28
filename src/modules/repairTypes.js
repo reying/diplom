@@ -1,16 +1,20 @@
 const repairTypes = () => {
     const body = document.querySelector('body'),
         repairTypesSection = document.getElementById('repair-types'),
-        sliders = document.querySelector('.repair-types-slider'),
+        repairTypesNavItems = document.querySelectorAll('.repair-types-nav__item'),
+        repairTypesSlider = document.querySelector('.repair-types-slider'),
         navListRepair = document.querySelector('.nav-list-repair'),
+        navArrowRepairLeft = document.getElementById('nav-arrow-repair-left_base'),
+        navArrowRepairRight = document.getElementById('nav-arrow-repair-right_base'),
+        sliderCounterCurrent = repairTypesSection.querySelector('.slider-counter-content__current'),
+        sliderCounterTotal = repairTypesSection.querySelector('.slider-counter-content__total'),
         popup = document.querySelector('.popup-repair-types'),
         popupNavListRepair = document.querySelector('.nav-list-popup-repair'),
+        popupNavArrowRepairLeft = document.getElementById('nav-arrow-popup-repair_left'),
+        popupNavArrowRepairRight = document.getElementById('nav-arrow-popup-repair_right'),
         popupHeadDate = document.querySelector('.popup-repair-types-content__head-date'),
         switchInner = document.getElementById('switch-inner'),
         popupContentTable = document.querySelector('.popup-repair-types-content-table');
-
-    document.querySelector('.slider-counter-content__total').textContent = sliders.children[0].children.length;
-    document.querySelector('#nav-arrow-repair-left_base').style.display = 'none';
 
     let count = 0,
         counter = 0,
@@ -18,35 +22,51 @@ const repairTypes = () => {
         popupNavCounter = 0,
         popupNavPositionX = 0;
 
-    for (let i = 1; i < sliders.children.length; i++) {
-        sliders.children[i].style.display = 'none';
-    }
+    const show = (elem, num) => {
+        for (let i = 0; i < elem.children.length; i++) {
+            elem.children[i].style.display = 'none';
+            if (i === num) { elem.children[i].style.display = 'block'; }
+        }
+    };
+
+    const translateBlock = (block, counterNum, position, direction) => {
+        let vector = 0;
+        if (direction === 'left') { vector = -1; } else if (direction === 'right') { vector = 1; }
+        const widthSlide = block.children[counterNum].offsetWidth + 10;
+        position += (widthSlide * vector);
+        block.style.transform = `translateX(-${position}px)`;
+        return position;
+    };
+
+    sliderCounterTotal.textContent = repairTypesSlider.children[0].children.length;
+    navArrowRepairLeft.style.display = 'none';
+
+    show(repairTypesSlider, 0);
 
     body.addEventListener('click', (event) => {
         const target = event.target;
 
         if (target.closest('.repair-types-nav__item')) {
-            document.querySelectorAll('.repair-types-nav__item').forEach(item => item.classList.remove('active'));
-            target.closest('.repair-types-nav__item').classList.add('active');
+            repairTypesNavItems.forEach(item => item.classList.remove('active'));
+            target.classList.add('active');
 
-            for (let item of sliders.children) { item.style.display = 'none'; }
+            show(repairTypesSlider);
 
-            const num = target.closest('.repair-types-nav__item').classList[2].replace(/\D+/i, ''),
+            const num = target.classList[2].replace(/\D+/i, ''),
                 slider = document.querySelector(`.types-repair${num}`);
 
             slider.style.display = 'block';
-            for (let i = 0; i < slider.children.length; i++) {
-                slider.children[i].style.display = 'none';
-                if (i === 0) { slider.children[i].style.display = 'block'; }
-            }
-            document.querySelector('.slider-counter-content__current').firstChild.textContent = 1;
-            document.querySelector('.slider-counter-content__total').textContent = slider.children.length;
+
+            show(slider, 0);
+
+            sliderCounterCurrent.firstChild.textContent = 1;
+            sliderCounterTotal.textContent = slider.children.length;
             count = 0;
         }
         if (target.closest('#repair-types') && target.closest('.slider-arrow')) {
             let slider;
 
-            const sliders = document.querySelector('.repair-types-slider').children;
+            const sliders = repairTypesSlider.children;
 
             for (let item of sliders) {
                 if (item.style.display !== 'none') { slider = item; }
@@ -72,41 +92,37 @@ const repairTypes = () => {
 
             if (target.closest('.slider-arrow_right')) {
                 slider.children[count].style.display = 'none';
+
                 if (count === slider.children.length - 1) {
                     count = 0;
                 } else {
                     count++;
                 }
+
                 slider.children[count].style.display = 'block';
             }
 
-            document.querySelector('.slider-counter-content__current').firstChild.textContent = count + 1;
-
+            sliderCounterCurrent.firstChild.textContent = count + 1;
         }
 
         if (target.closest('#nav-arrow-repair-left_base')) {
-            const widthSlide = navListRepair.children[counter].offsetWidth + 10;
-            positionX -= widthSlide;
-            navListRepair.style.transform = `translateX(-${positionX}px)`;
+            positionX = translateBlock(navListRepair, counter, positionX, 'left');
 
             if (counter === 0) {
-                document.querySelector('#nav-arrow-repair-left_base').style.display = 'none';
+                navArrowRepairLeft.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-repair-right_base').style.display = 'block';
+                navArrowRepairRight.style.display = 'block';
                 counter--;
             }
         }
 
         if (target.closest('#nav-arrow-repair-right_base')) {
-
-            const widthSlide = navListRepair.children[counter].offsetWidth + 10;
-            positionX += widthSlide;
-            navListRepair.style.transform = `translateX(-${positionX}px)`;
+            positionX = translateBlock(navListRepair, counter, positionX, 'right');
 
             if (counter === navListRepair.children.length - 4) {
-                document.querySelector('#nav-arrow-repair-right_base').style.display = 'none';
+                navArrowRepairRight.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-repair-left_base').style.display = 'block';
+                navArrowRepairLeft.style.display = 'block';
                 counter++;
             }
         }
@@ -126,34 +142,31 @@ const repairTypes = () => {
         }
 
         if (target.closest('.link-list-repair') && target.closest('a')) {
+
             for (let table of popupContentTable.children) {
                 table.style.display = 'none';
             }
             popupContentTable.children[0].style.display = 'block';
-            if (popupNavCounter === 0) { document.querySelector('#nav-arrow-popup-repair_left').style.display = 'none'; }
+            if (popupNavCounter === 0) { popupNavArrowRepairLeft.style.display = 'none'; }
         }
 
         if (target.closest('#nav-arrow-popup-repair_left')) {
-            const widthSlide = popupNavListRepair.children[popupNavCounter].offsetWidth + 10;
-            popupNavPositionX -= widthSlide;
-            popupNavListRepair.style.transform = `translateX(-${popupNavPositionX}px)`;
+            popupNavPositionX = translateBlock(popupNavListRepair, popupNavCounter, popupNavPositionX, 'left');
 
             if (popupNavCounter === 0) {
-                document.querySelector('#nav-arrow-popup-repair_left').style.display = 'none';
+                popupNavArrowRepairLeft.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-popup-repair_right').style.display = 'block';
+                popupNavArrowRepairRight.style.display = 'block';
                 popupNavCounter--;
             }
         }
         if (target.closest('#nav-arrow-popup-repair_right')) {
-            const widthSlide = popupNavListRepair.children[popupNavCounter].offsetWidth + 10;
-            popupNavPositionX += widthSlide;
-            popupNavListRepair.style.transform = `translateX(-${popupNavPositionX}px)`;
+            popupNavPositionX = translateBlock(popupNavListRepair, popupNavCounter, popupNavPositionX, 'right');
 
-            if (popupNavCounter === popupNavListRepair.children.length - 4) {
-                document.querySelector('#nav-arrow-popup-repair_right').style.display = 'none';
+            if (popupNavCounter === popupNavListRepair.children.length - 3) {
+                popupNavArrowRepairRight.style.display = 'none';
             } else {
-                document.querySelector('#nav-arrow-popup-repair_left').style.display = 'block';
+                popupNavArrowRepairLeft.style.display = 'block';
                 popupNavCounter++;
             }
         }

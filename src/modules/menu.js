@@ -20,27 +20,23 @@ const menu = () => {
             width = document.documentElement.clientWidth,
             height = document.documentElement.clientHeight;
 
-        // open the menu
-        if (target.closest('.menu__icon')) {
+        const closeMenu = (right, top) => {
             if (width >= 576) {
-                menu.style.right = '645px';
+                menu.style.right = right + 'px';
             } else {
-                menu.style.top = `${height}px`;
-            }
-        }
-
-        const closeMenu = () => {
-            if (width >= 576) {
-                menu.style.right = '0px';
-            } else {
-                menu.style.top = '0px';
+                menu.style.top = top + 'px';
             }
         };
 
-        if (target.closest('.close-menu')) { closeMenu(); }
+        // open the menu
+        if (target.closest('.menu__icon')) {
+            closeMenu(645, height);
+        }
+
+        if (target.closest('.close-menu')) { closeMenu(0, 0); }
 
         if (target.closest('.menu-link')) {
-            closeMenu();
+            closeMenu(0, 0);
             scrollToBlock(target.closest('.menu-link'), event);
         }
 
