@@ -20,7 +20,8 @@ const repairTypes = () => {
         counter = 0,
         positionX = 0,
         popupNavCounter = 0,
-        popupNavPositionX = 0;
+        popupNavPositionX = 0,
+        lastShowNavItem = 3;
 
     const show = (elem, num) => {
         for (let i = 0; i < elem.children.length; i++) {
@@ -36,6 +37,11 @@ const repairTypes = () => {
         position += (widthSlide * vector);
         block.style.transform = `translateX(-${position}px)`;
         return position;
+    };
+
+    const switchinNavItem = () => {
+        const clientWidth = document.documentElement.clientWidth;
+        if (clientWidth <= 576) { lastShowNavItem = 2; }
     };
 
     sliderCounterTotal.textContent = repairTypesSlider.children[0].children.length;
@@ -117,9 +123,11 @@ const repairTypes = () => {
         }
 
         if (target.closest('#nav-arrow-repair-right_base')) {
+            switchinNavItem();
+
             positionX = translateBlock(navListRepair, counter, positionX, 'right');
 
-            if (counter === navListRepair.children.length - 4) {
+            if (counter === navListRepair.children.length - lastShowNavItem) {
                 navArrowRepairRight.style.display = 'none';
             } else {
                 navArrowRepairLeft.style.display = 'block';
@@ -161,9 +169,11 @@ const repairTypes = () => {
             }
         }
         if (target.closest('#nav-arrow-popup-repair_right')) {
+            switchinNavItem();
+
             popupNavPositionX = translateBlock(popupNavListRepair, popupNavCounter, popupNavPositionX, 'right');
 
-            if (popupNavCounter === popupNavListRepair.children.length - 3) {
+            if (popupNavCounter === popupNavListRepair.children.length - lastShowNavItem) {
                 popupNavArrowRepairRight.style.display = 'none';
             } else {
                 popupNavArrowRepairLeft.style.display = 'block';

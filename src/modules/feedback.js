@@ -1,8 +1,10 @@
 const feedback = () => {
+    const body = document.querySelector('body'),
+        feedbackInputs = document.querySelectorAll('.feedback__input-input'),
+        checkboxInputs = document.querySelectorAll('.checkbox__input');
 
     const maskPhone = (selector, masked = '+7 (___) ___-__-__') => {
-        const elems = document.querySelectorAll(selector),
-            body = document.querySelector('body');
+        const elems = document.querySelectorAll(selector);
 
         function mask(event) {
             const keyCode = event.keyCode;
@@ -45,6 +47,18 @@ const feedback = () => {
 
     maskPhone('.feedback__input-input');
     maskPhone('.feedback-block__form-input_phone');
+
+
+    body.addEventListener('input', (event) => {
+        const target = event.target;
+
+        if (target.closest('.feedback-block__form-input_name')) {
+            target.value = target.value.replace(/[^а-яёa-z\s]/i, '');
+        }
+    });
+
+    feedbackInputs.forEach(item => item.setAttribute('required', true));
+    checkboxInputs.forEach(item => item.required = false);
 };
 
 export default feedback;

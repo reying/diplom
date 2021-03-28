@@ -134,7 +134,7 @@ const successFormula = () => {
             rightOffsetSlide();
             rightOffsetSlide();
             render();
-            wrap.style.transform = `translateX(-${widthSlide}%)`;
+            wrap.style.transform = `translateX(-${widthSlide-2}%)`;
         };
 
         init();

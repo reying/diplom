@@ -21,7 +21,8 @@ const designs = () => {
     let currentSlide = 0,
         currentPreview = 0,
         counter = 0,
-        positionX = 0;
+        positionX = 0,
+        lastShowNavItem = 4;
 
     const searchActive = (arr, className) => {
         for (let i = 0; i < arr.length; i++) {
@@ -47,6 +48,11 @@ const designs = () => {
         const widthSlide = nav.children[counter].offsetWidth + 10;
         positionX = positionX + (widthSlide * vector);
         nav.style.transform = `translateX(-${positionX}px)`;
+    };
+
+    const switchinNavItem = () => {
+        const clientWidth = document.documentElement.clientWidth;
+        if (clientWidth <= 576) { lastShowNavItem = 2; } else if (clientWidth < 694) { lastShowNavItem = 3; }
     };
 
 
@@ -97,9 +103,10 @@ const designs = () => {
             }
 
             if (target.closest('#nav-arrow-designs_right')) {
+                switchinNavItem();
                 shiftingNavList(navListDesigns, 'right');
 
-                if (counter === navListDesigns.children.length - 4) {
+                if (counter === navListDesigns.children.length - lastShowNavItem) {
                     navArrowDesignsRight.style.display = 'none';
                 } else {
                     navArrowDesignsLeft.style.display = 'block';
@@ -201,9 +208,10 @@ const designs = () => {
                 }
             }
             if (target.closest('#nav-arrow-popup-designs_right')) {
+                switchinNavItem();
                 shiftingNavList(navListPopupDesigns, 'right');
 
-                if (counter === navListPopupDesigns.children.length - 4) {
+                if (counter === navListPopupDesigns.children.length - lastShowNavItem) {
                     navArrowPopupDesignsRight.style.display = 'none';
                     navArrowPopupDesignsLeft.style.display = 'block';
                 } else {

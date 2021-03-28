@@ -9,7 +9,8 @@ const scheme = () => {
 
     let numActiveItem = 0,
         counter = 0,
-        positionX = 0;
+        positionX = 0,
+        lastShowNavItem = 4;
 
     const checkState = () => {
         schemeNavItems.forEach((item, index) => {
@@ -28,6 +29,11 @@ const scheme = () => {
         if (direction === 'left') { widthSlide *= -1; }
         positionX += widthSlide;
         block.style.transform = `translateX(-${positionX}px)`;
+    };
+
+    const switchinNavItem = () => {
+        const clientWidth = document.documentElement.clientWidth;
+        if (clientWidth <= 576) { lastShowNavItem = 2; } else if (clientWidth < 694) { lastShowNavItem = 3; }
     };
 
     body.addEventListener('click', (event) => {
@@ -58,9 +64,10 @@ const scheme = () => {
         }
 
         if (target.closest('#nav-arrow-scheme_right')) {
+            switchinNavItem();
             translateBlock(schemeList, 'right');
 
-            if (counter === schemeList.children.length - 4) {
+            if (counter === schemeList.children.length - lastShowNavItem) {
                 navArrowSchemeRight.style.display = 'none';
             } else {
                 navArrowSchemeLeft.style.display = 'block';

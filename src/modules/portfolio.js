@@ -15,7 +15,8 @@ const portfolio = () => {
 
     let counter = 0,
         positionX = 0,
-        count = 0;
+        count = 0,
+        lastShowNavItem = 4;
 
     popupPortfolioSliderWrap.style.overflow = 'hidden';
     popupPortfolioSlider.style.display = 'flex';
@@ -49,14 +50,23 @@ const portfolio = () => {
         }
     };
 
+    const switchinSlide = () => {
+        const clientWidth = document.documentElement.clientWidth;
+        if (clientWidth <= 900) {
+            lastShowNavItem = 2;
+        } else if (clientWidth <= 1024) {
+            lastShowNavItem = 3;
+        }
+    };
 
     portfolioSection.addEventListener('click', (event) => {
         const target = event.target;
 
         if (target.closest('#portfolio-arrow_right')) {
             translateSlides('right');
+            switchinSlide();
 
-            if (counter === portfolioSlider.children.length - 4) {
+            if (counter === portfolioSlider.children.length - lastShowNavItem) {
                 portfolioArrowRight.style.display = 'none';
             } else {
                 portfolioArrowLeft.style.display = 'flex';

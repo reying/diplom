@@ -72,9 +72,13 @@ const transparency = () => {
 
         if (target.closest('.popup-transparency')) {
             if (target.closest('.close')) {
-                transparencySlides.forEach(item => item.style.display = 'none');
-                transparencySlides[count].style.display = 'flex';
+
                 popupTransparency.style.visibility = 'hidden';
+
+                if (transparencySection.clientWidth <= 1090) {
+                    transparencySlides.forEach(item => item.style.display = 'none');
+                    transparencySlides[count].style.display = 'flex';
+                }
             }
 
             if (target.closest('#transparency_left')) {

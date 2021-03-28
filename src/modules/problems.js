@@ -39,7 +39,11 @@ const problems = () => {
         const main = document.querySelector('.problems-slider-wrap'),
             next = document.querySelector('#problems-arrow_right'),
             prev = document.querySelector('#problems-arrow_left'),
-            slidesToShow = 3,
+            responsive = [{ breakpoint: 1024, slidesToShow: 3 },
+                { breakpoint: 832, slidesToShow: 1 }
+            ];
+
+        let slidesToShow = 3,
             widthSlide = Math.floor(100 / slidesToShow);
 
         let slides = document.querySelectorAll('.problems-slider__slide'),
@@ -47,11 +51,17 @@ const problems = () => {
 
         const render = () => {
             wrap.innerHTML = '';
-            for (let i = 0; i < 3; i++) {
-                slides[i].classList.remove('active-item');
-                if (i === 1) { slides[i].classList.add('active-item'); }
-                wrap.appendChild(slides[i]);
+            if (slidesToShow !== 1) {
+                for (let i = 0; i < 3; i++) {
+                    slides[i].classList.remove('active-item');
+                    if (i === 1) { slides[i].classList.add('active-item'); }
+                    wrap.appendChild(slides[i]);
+                }
+            } else {
+                slides[0].classList.add('active-item');
+                wrap.appendChild(slides[0]);
             }
+
         };
 
         const rightOffsetSlide = () => {
@@ -119,10 +129,41 @@ const problems = () => {
             next.addEventListener('click', nextSlider);
         };
 
+        const responseInit = () => {
+            const slidesToShowDefault = slidesToShow;
+            const allResponse = responsive.map(item => item.breakpoint);
+            const maxResponse = Math.max(...allResponse);
+
+            const computingWidthSlide = (newSlidesToShow) => {
+                slidesToShow = newSlidesToShow;
+                widthSlide = Math.floor(100 / slidesToShow);
+            };
+
+            const checkResponse = () => {
+                const widthWindow = document.documentElement.clientWidth;
+                if (widthWindow < maxResponse) {
+                    for (let i = 0; i < allResponse.length; i++) {
+                        if (widthWindow < allResponse[i]) {
+                            computingWidthSlide(responsive[i].slidesToShow);
+                            addStyle();
+                        }
+                    }
+                } else {
+                    computingWidthSlide(slidesToShowDefault);
+                    addStyle();
+                }
+                render();
+            };
+
+            checkResponse();
+            window.addEventListener('resize', checkResponse);
+        };
+
         const init = () => {
             addClass();
             addStyle();
             controlSlider();
+            responseInit();
 
             const newArr = [];
             slides.forEach(item => newArr.push(item));

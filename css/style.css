@@ -1111,7 +1111,7 @@ template,
 
 @media (max-width: 575px) {
     .formula-slider {
-        min-height: 265px;
+        /* min-height: 265px; */
         margin-top: 52px;
     }
 }
